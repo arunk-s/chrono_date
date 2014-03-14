@@ -138,7 +138,7 @@ rule date-run-2-fail ( sources + : name )
         [ date-run-2 wrappers/week_pass.cpp : week_pass ]
         [ date-run-2 wrappers/month_pass.cpp : month_pass ]
         [ date-run-2 wrappers/year_pass.cpp : year_pass ]
-
+	[ date-run-2 wrappers/days_from_civil_pass.cpp : days_from_civil_pass ]
         #[ date-run-2-fail wrappers/day_of_year_fail.cpp : day_of_year_f ]
 
         ;
