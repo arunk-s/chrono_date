@@ -1,0 +1,166 @@
+# Boost Chrono.Date Library test Jamfile
+
+# Copyright Vicente J. Botet Escriba 2011-2013
+
+# Distributed under the Boost Software License, Version 1.0.
+# See accompanying file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt
+
+# See library home page at http://www.boost.org/libs/chrono
+
+import os ;
+# bring in rules for testing
+import testing ;
+import feature ;
+
+#feature.feature chrono_v2
+#  : on off
+#  : composite propagated optional
+#  ;
+
+#feature.compose <chrono_v2>on
+#  : <define>BOOST_CHRONO_DONT_PROVIDE_DEPRECATED_IO_V1=1
+#  ;
+
+project
+    : requirements
+
+        #defines
+        #<define>BOOST_CHRONO_DONT_PROVIDE_DEPRECATED_IO_V1
+        <define>BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
+        <define>BOOST_CHRONO_HEADER_ONLY
+        <define>BOOST_CHRONO_USES_MPL_ASSERT
+        <define>BOOST_SYSTEM_NO_DEPRECATED
+        <toolset>sun:<define>BOOST_TYPEOF_EMULATION
+        #<threading>single:<define>BOOST_CHRONO_THREAD_DISABLED
+
+        #link
+        <target-os>freebsd:<linkflags>"-lrt" 
+        <target-os>linux:<linkflags>"-lrt" 
+        <toolset>pgi:<linkflags>"-lrt" 
+
+        <toolset>msvc:<asynch-exceptions>on
+
+        <warnings>all
+        <toolset>clang:<cxxflags>-Wextra
+        <toolset>clang:<cxxflags>-pedantic
+        <toolset>clang:<cxxflags>-Wno-long-long
+
+        <toolset>gcc-4.4.6:<cxxflags>-fpermissive
+        <toolset>gcc-4.4.6.0x:<cxxflags>-fpermissive
+
+        <toolset>gcc-4.6.1:<cxxflags>-fpermissive
+        <toolset>gcc-4.6.1.0x:<cxxflags>-fpermissive
+
+        <toolset>darwin:<cxxflags>-Wextra
+        <toolset>darwin:<cxxflags>-pedantic
+        <toolset>darwin:<cxxflags>-Wno-long-long
+        <toolset>darwin-4.6.2:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>darwin-4.7.0:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>darwin-4.7.1:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>darwin-4.7.2:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>darwin-4.8.0:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>darwin-4.6.2x:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>darwin-4.7.1x:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>darwin-4.7.2x:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>darwin-4.8.0x:<cxxflags>-Wno-unused-local-typedefs
+        <toolset>darwin-4.2.1:<cxxflags>-fpermissive
+        <toolset>darwin-4.6.2:<cxxflags>-fpermissive
+        <toolset>darwin-4.7.0:<cxxflags>-fpermissive
+        <toolset>darwin-4.7.1:<cxxflags>-fpermissive
+        <toolset>darwin-4.7.2:<cxxflags>-fpermissive
+        <toolset>darwin-4.8.0:<cxxflags>-fpermissive
+        <toolset>darwin-4.6.2x:<cxxflags>-fpermissive
+        <toolset>darwin-4.7.0x:<cxxflags>-fpermissive
+        <toolset>darwin-4.7.1x:<cxxflags>-fpermissive
+        <toolset>darwin-4.7.2x:<cxxflags>-fpermissive
+        <toolset>darwin-4.8.0x:<cxxflags>-fpermissive
+
+        <toolset>gcc:<cxxflags>-Wextra
+        <toolset>gcc:<cxxflags>-pedantic
+        <toolset>gcc:<cxxflags>-Wno-long-long
+        <toolset>gcc-mingw-4.5.0:<cxxflags>-Wno-missing-field-initializers
+        <toolset>gcc-mingw-4.5.0:<cxxflags>-fdiagnostics-show-option
+        <toolset>msvc:<cxxflags>/wd4127
+# Note: Some of the remarks from the Intel compiler are disabled
+# remark #304: access control not specified ("public" by default)
+# remark #383: value copied to temporary, reference to temporary used
+# remark #1418: external function definition with no prior declaration
+        <toolset>intel:<cxxflags>-wd304,383,1418
+        <toolset>pathscale:<cxxflags>-Wno-long-long
+        <toolset>pathscale:<cxxflags>-pedantic
+    ;
+
+
+rule date-run ( sources + )
+{
+    return
+    [ run $(sources) ../build//boost_chrono_date
+        : :
+        :
+            <library>/boost/chrono//boost_chrono
+            <library>/boost/system//boost_system
+        :   $(sources[1]:B)_shared ]
+    ;
+}
+
+rule date-run-2 ( sources + : name )
+{
+    return
+    [ run $(sources) ../build//boost_chrono_date
+        : :
+        :
+            <library>/boost/chrono//boost_chrono
+            <library>/boost/system//boost_system
+        :   $(name)_shared ]
+    ;
+}
+
+rule date-run-2-fail ( sources + : name )
+{
+    return
+    [ run-fail $(sources) ../build//boost_chrono_date
+        : :
+        :
+            <library>/boost/chrono//boost_chrono
+            <library>/boost/system//boost_system
+        :   $(name)_shared ]
+    ;
+}
+
+
+    test-suite "wrappers"
+        :
+        [ date-run-2 wrappers/day_pass.cpp : day_pass ]
+        #[ date-run-2 wrappers/nth_pass.cpp : nth_pass ]
+        [ date-run-2 wrappers/weekday_pass.cpp : weekday_pass ]
+        [ date-run-2 wrappers/day_of_year_pass.cpp : day_of_year_pass ]
+        [ date-run-2 wrappers/nth_week_pass.cpp : nth_week_pass ]
+        [ date-run-2 wrappers/week_pass.cpp : week_pass ]
+        [ date-run-2 wrappers/month_pass.cpp : month_pass ]
+        [ date-run-2 wrappers/year_pass.cpp : year_pass ]
+
+        #[ date-run-2-fail wrappers/day_of_year_fail.cpp : day_of_year_f ]
+
+        ;
+
+    test-suite "dates"
+        :
+        [ date-run-2 dates/days/days_date_pass.cpp : days_date_pass ]
+        [ date-run-2 dates/ymd/ymd_date_pass.cpp : ymd_date_pass ]
+        [ date-run-2 dates/ydoy/ydoy_date_pass.cpp : ydoy_date_pass ]
+        #[ date-run-2 dates/days/nth_days_date_pass.cpp : nth_days_date_pass ]
+        ;
+
+    test-suite "examples"
+        :
+        [ date-run ../example/hello_world.cpp ]
+        [ date-run ../example/ex_week_based_year.cpp ]
+        [ date-run-2 ../example/ex_julian.cpp ../example/julian.cpp : ex_julian ]
+        ;
+
+    explicit "perf" ;
+    test-suite "perf"
+        :
+        [ date-run ../perf/serial_calendar_conversions.cpp  ]
+        ;
+
