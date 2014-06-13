@@ -20,8 +20,11 @@ namespace boost
   namespace chrono
   {
 
+<<<<<<< HEAD
 days_rep
 days_from_civil_f(int y, int m, int d) BOOST_NOEXCEPT;
+=======
+>>>>>>> f222676280e8ab729b0271ecc1ca6384082d26c1
 
 
     /**
