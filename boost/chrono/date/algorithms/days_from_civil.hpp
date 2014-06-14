@@ -34,13 +34,14 @@ namespace boost {
 #if ! defined BOOST_NO_CXX14_RELAXED_CONSTEXPR
 
 template <class Int>
-constexpr
+BOOST_CONSTEXPR
+BOOST_FORCEINLINE
 Int
-days_from_civil(int y, int m, int d) noexcept
+days_from_civil(int y, int m, int d) BOOST_NOEXCEPT
 {
-    static_assert(std::numeric_limits<unsigned>::digits >= 18,
+    BOOST_STATIC_ASSERT_MSG(std::numeric_limits<unsigned>::digits >= 18,
              "This algorithm has not been ported to a 16 bit unsigned integer");
-    static_assert(std::numeric_limits<Int>::digits >= 20,
+    BOOST_STATIC_ASSERT_MSG(std::numeric_limits<Int>::digits >= 20,
              "This algorithm has not been ported to a 16 bit signed integer");
     y -= m <= 2;
     const Int era = (y >= 0 ? y : y-399) / 400;
@@ -51,9 +52,10 @@ days_from_civil(int y, int m, int d) noexcept
 }
 
 template <class Int>
-constexpr
+BOOST_CONSTEXPR
+BOOST_FORCEINLINE
 Int
-days_from_civil2(int y, unsigned m, unsigned d) noexcept
+days_from_civil2(int y, unsigned m, unsigned d) BOOST_NOEXCEPT
 {
     static_assert(std::numeric_limits<unsigned>::digits >= 18,
              "This algorithm has not been ported to a 16 bit unsigned integer");
@@ -157,10 +159,9 @@ days_from_civil2(int y, unsigned m, unsigned d) noexcept
 
 #endif
 
-
-constexpr
+BOOST_CONSTEXPR
 days_rep
-days_from_civil(year y, month m, day d) noexcept
+days_from_civil(year y, month m, day d) BOOST_NOEXCEPT
 {
   return days_from_civil<days_rep>(y.value(),m.value(),d.value());
 }

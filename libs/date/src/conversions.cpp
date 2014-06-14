@@ -22,9 +22,9 @@ days_from_civil_f(int y, int m, int d) BOOST_NOEXCEPT
 {
     typedef days_rep Int;
 
-    static_assert(std::numeric_limits<unsigned>::digits >= 18,
+    BOOST_STATIC_ASSERT_MSG(std::numeric_limits<unsigned>::digits >= 18,
              "This algorithm has not been ported to a 16 bit unsigned integer");
-    static_assert(std::numeric_limits<Int>::digits >= 20,
+    BOOST_STATIC_ASSERT_MSG(std::numeric_limits<Int>::digits >= 20,
              "This algorithm has not been ported to a 16 bit signed integer");
     y -= m <= 2;
     const Int era = (y >= 0 ? y : y-399) / 400;

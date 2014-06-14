@@ -33,9 +33,9 @@ BOOST_FORCEINLINE
 std::tuple<Int, unsigned, unsigned>
 civil_from_days(Int z) BOOST_NOEXCEPT
 {
-    static_assert(std::numeric_limits<unsigned>::digits >= 18,
+    BOOST_STATIC_ASSERT_MSG(std::numeric_limits<unsigned>::digits >= 18,
              "This algorithm has not been ported to a 16 bit unsigned integer");
-    static_assert(std::numeric_limits<Int>::digits >= 20,
+    BOOST_STATIC_ASSERT_MSG(std::numeric_limits<Int>::digits >= 20,
              "This algorithm has not been ported to a 16 bit signed integer");
     z += 719468;
     const Int era = (z >= 0 ? z : z - 146096) / 146097;

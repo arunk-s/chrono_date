@@ -3,7 +3,7 @@
 #include <boost/chrono/date/ydoy_date.hpp>
 #include <boost/chrono/date/date_io.hpp>
 #include <boost/chrono/chrono_io.hpp>
-#include <boost/chrono/date/algorithm/days_from_civil.hpp>
+#include <boost/chrono/date/algorithms/days_from_civil.hpp>
 
 #include <boost/detail/lightweight_test.hpp>
 
