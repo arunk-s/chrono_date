@@ -6,7 +6,6 @@
 #include <boost/chrono/date/tuples.hpp>
 #include <boost/chrono/chrono.hpp>
 #include <tuple>
-#include <typeinfo>
 
 using namespace boost::chrono;
 
@@ -18,23 +17,23 @@ typedef boost::chrono::duration<double> sec;
 
 
 void years_civil_from_days(){
-  boost::chrono::days_rep count = 0;
+//  boost::chrono::days_rep count = 0;
   int ycount = 0;
   Clock::time_point t0 = Clock::now();
   days_date dt_1(jan/day(01)/1970);
-  days_date dt_2(jan/day(01)/0001);
-  boost::chrono::days_rep serial_date = dt_2.days_since_epoch().count() - dt_1.days_since_epoch().count() ;
-  auto d = civil_from_days(serial_date);
+//  days_date dt_2(jan/day(01)/0001);
+//  boost::chrono::days_rep serial_date = dt_2.days_since_epoch().count() - dt_1.days_since_epoch().count() ;
+//  auto d = civil_from_days(serial_date);
 
   for (int y = Ymin; y <=Ymax; ++y)
   {
-    for (int m = 1; m <=12; ++m)
+    for (unsigned int m = 1; m <=12; ++m)
     {
       month m_ = month(m, no_check);
       bool is_leap = year(y).is_leap();
-      int day_count = m_.days_in(is_leap).count();
+      unsigned int day_count = m_.days_in(is_leap).count();
 
-      for(int i = 1 ; i<=day_count ;++i)
+      for(unsigned int i = 1 ; i<=day_count ;++i)
       {
 
           auto d_1 = civil_from_days(days_date(m_/day(i)/y).days_since_epoch().count()-dt_1.days_since_epoch().count());
@@ -48,9 +47,7 @@ void years_civil_from_days(){
     ycount++;
   }
   Clock::time_point t1 = Clock::now();
-  //typedef boost::chrono::duration<float, boost::nano> sec;
-  //Clock::time_point encode = t1 - t0;	
-  std::cout << "with days_from_civil()                   " << t1-t0<< " Total Years " << ycount << " " <<count << '\n';
+  std::cout << "with days_from_civil()                   " << t1-t0<< " Total Years " << ycount << '\n';
  
 
 //  std::cout<<std::get<0>(d)<<" "<<std::get<1>(d)<<" "<<std::get<2>(d)<<std::endl;
@@ -58,11 +55,11 @@ void years_civil_from_days(){
 }
 
 void years_to_ymd(){
-  boost::chrono::days_rep count = 0;
+//  boost::chrono::days_rep count = 0;
   int ycount = 0;
   Clock::time_point t0 = Clock::now();
-  days_date dt_1(jan/day(01)/0001);
-  boost::chrono::days serial_date = dt_1.days_since_epoch() ;//- dt_1.days_since_epoch();
+//  days_date dt_1(jan/day(01)/0001);
+//  boost::chrono::days serial_date = dt_1.days_since_epoch() ;//- dt_1.days_since_epoch();
 //  year_month_day ymd = to_ymd(serial_date);
 //  year y(ymd);
 //  month m_
@@ -71,17 +68,17 @@ void years_to_ymd(){
 
   for (int y = Ymin; y <=Ymax; ++y)
   {
-    for (int m = 1; m <=12; ++m)
+    for (unsigned int m = 1; m <=12; ++m)
     {
       month m_ = month(m, no_check);
       bool is_leap = year(y).is_leap();
-      int day_count = m_.days_in(is_leap).count();
+      unsigned int day_count = m_.days_in(is_leap).count();
 
-      for(int i = 1 ; i<=day_count ;++i)
+      for(unsigned i = 1 ; i<=day_count ;++i)
       {
 
           year_month_day ymd = to_ymd(days_date(m_/day(i)/y).days_since_epoch());
-          BOOST_VERIFY( year(ymd) == y);
+          BOOST_VERIFY(year(ymd) == y);
           BOOST_VERIFY(month(ymd) == m_);
           BOOST_VERIFY(day(ymd) == i);
 //          prev = serial_date;
@@ -91,7 +88,7 @@ void years_to_ymd(){
     ycount++;
   }
   Clock::time_point t1 = Clock::now();
-  std::cout << "with to_ymd()                            " << t1-t0<< " Total Years " << ycount << " " <<count << '\n';
+  std::cout << "with to_ymd()                            " << t1-t0<< " Total Years " << ycount << '\n';
 
 }
 int main(){
