@@ -91,8 +91,42 @@ void years_to_ymd(){
   std::cout << "with to_ymd()                            " << t1-t0<< " Total Years " << ycount << '\n';
 
 }
+
+void years_to_ymd_f(){
+  int ycount = 0;
+  Clock::time_point t0 = Clock::now();
+  int y__;
+  int m__,d__;
+
+  for (int y = Ymin; y <=Ymax; ++y)
+  {
+    for (unsigned int m = 1; m <=12; ++m)
+    {
+      month m_ = month(m, no_check);
+      bool is_leap = year(y).is_leap();
+      unsigned int day_count = m_.days_in(is_leap).count();
+
+      for(unsigned i = 1 ; i<=day_count ;++i)
+      {
+
+          boost::chrono::days_rep serial_date = days_date(m_/day(i)/y).days_since_epoch().count(); //- dt_1.days_since_epoch().count() ;
+          to_ymd(serial_date,y__,m__,d__);
+          BOOST_VERIFY(y__ == y);
+          BOOST_VERIFY(m__ == m);
+          BOOST_VERIFY(d__ == i);
+//          prev = serial_date;
+//          count+=serial_date;
+      }
+    }
+    ycount++;
+  }
+  Clock::time_point t1 = Clock::now();
+  std::cout << "with to_ymd(y&,m&,d&)                    " << t1-t0<< " Total Years " << ycount << '\n';
+
+}
 int main(){
 	years_civil_from_days();
 	years_to_ymd();
+  years_to_ymd_f();
   return 1;
 }
