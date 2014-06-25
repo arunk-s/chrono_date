@@ -129,6 +129,7 @@ namespace boost
       /**
        * Explicit
        */
+      BOOST_FORCEINLINE BOOST_CONSTEXPR operator unchecked::month() const
       {
         return unchecked::month(value());
       }

@@ -20,6 +20,10 @@ namespace boost
   namespace chrono
   {
 
+days_rep
+days_from_civil_f(int y, int m, int d) BOOST_NOEXCEPT;
+
+
     /**
      * days to ymd conversion.
      * @param d the days to convert.
