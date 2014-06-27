@@ -21,7 +21,6 @@ void years_civil_from_days(){
   int ycount = 0;
   Clock::time_point t0 = Clock::now();
   days_date dt_1(jan/day(01)/1970);
-//  days_date dt_2(jan/day(01)/0001);
 //  boost::chrono::days_rep serial_date = dt_2.days_since_epoch().count() - dt_1.days_since_epoch().count() ;
 //  auto d = civil_from_days(serial_date);
 
@@ -36,21 +35,18 @@ void years_civil_from_days(){
       for(unsigned int i = 1 ; i<=day_count ;++i)
       {
 
-          auto d_1 = civil_from_days(days_date(m_/day(i)/y).days_since_epoch().count()-dt_1.days_since_epoch().count());
-          BOOST_VERIFY(std::get<0>(d_1) == y);
-          BOOST_VERIFY(std::get<1>(d_1) == m);
-          BOOST_VERIFY(std::get<2>(d_1) == i);
-//          prev = serial_date;
-//          count+=serial_date;
+          civil_from_days(days_date(m_/day(i)/y).days_since_epoch().count()-dt_1.days_since_epoch().count());
+//          auto d_1 = 
+//          BOOST_VERIFY(std::get<0>(d_1) == y);
+//          BOOST_VERIFY(std::get<1>(d_1) == m);
+//          BOOST_VERIFY(std::get<2>(d_1) == i);
       }
     }
     ycount++;
   }
   Clock::time_point t1 = Clock::now();
-  std::cout << "with days_from_civil()                   " << t1-t0<< " Total Years " << ycount << '\n';
+  std::cout << "with civil_from_days()                   " << t1-t0<< " Total Years " << ycount << '\n';
  
-
-//  std::cout<<std::get<0>(d)<<" "<<std::get<1>(d)<<" "<<std::get<2>(d)<<std::endl;
 
 }
 
@@ -60,10 +56,6 @@ void years_to_ymd(){
   Clock::time_point t0 = Clock::now();
 //  days_date dt_1(jan/day(01)/0001);
 //  boost::chrono::days serial_date = dt_1.days_since_epoch() ;//- dt_1.days_since_epoch();
-//  year_month_day ymd = to_ymd(serial_date);
-//  year y(ymd);
-//  month m_
-//  std::cout<<y<<std::endl;
 //  auto d = civil_from_days(serial_date);
 
   for (int y = Ymin; y <=Ymax; ++y)
@@ -77,12 +69,11 @@ void years_to_ymd(){
       for(unsigned i = 1 ; i<=day_count ;++i)
       {
 
-          year_month_day ymd = to_ymd(days_date(m_/day(i)/y).days_since_epoch());
-          BOOST_VERIFY(year(ymd) == y);
-          BOOST_VERIFY(month(ymd) == m_);
-          BOOST_VERIFY(day(ymd) == i);
-//          prev = serial_date;
-//          count+=serial_date;
+          to_ymd(days_date(m_/day(i)/y).days_since_epoch());
+          //year_month_day ymd = 
+          //BOOST_VERIFY(year(ymd) == y);
+          //BOOST_VERIFY(month(ymd) == m_);
+          //BOOST_VERIFY(day(ymd) == i);
       }
     }
     ycount++;
@@ -95,8 +86,8 @@ void years_to_ymd(){
 void years_to_ymd_f(){
   int ycount = 0;
   Clock::time_point t0 = Clock::now();
-  int y__;
-  int m__,d__;
+//  int y__;
+//  int m__,d__;
 
   for (int y = Ymin; y <=Ymax; ++y)
   {
@@ -109,13 +100,13 @@ void years_to_ymd_f(){
       for(unsigned i = 1 ; i<=day_count ;++i)
       {
 
-          boost::chrono::days_rep serial_date = days_date(m_/day(i)/y).days_since_epoch().count(); //- dt_1.days_since_epoch().count() ;
-          to_ymd(serial_date,y__,m__,d__);
-          BOOST_VERIFY(y__ == y);
-          BOOST_VERIFY(m__ == m);
-          BOOST_VERIFY(d__ == i);
-//          prev = serial_date;
-//          count+=serial_date;
+          days_date(m_/day(i)/y).days_since_epoch().count(); 
+          
+          //boost::chrono::days_rep serial_date = 
+          //to_ymd(serial_date,y__,m__,d__);
+          //BOOST_VERIFY(y__ == y);
+          //BOOST_VERIFY(m__ == m);
+          //BOOST_VERIFY(d__ == i);
       }
     }
     ycount++;

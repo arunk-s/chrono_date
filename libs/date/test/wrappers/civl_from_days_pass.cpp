@@ -43,7 +43,6 @@ int main()
         days_date dt_4(jan/day(1)/year(1));
         days_date dt_2(jan/day(01)/2014); //A date in the same era of the above date
         days_date dt_3(jan/day(02)/2014); //A date ahead 400 years of the starting date      
- //       cout<<doe_(dt_4.days_since_epoch().count())<<endl;
         BOOST_TEST(doe_(dt_3.days_since_epoch().count())==1+doe_(dt_2.days_since_epoch().count()));
         BOOST_TEST(doe_(dt_3.days_since_epoch().count()) <= 146096 && doe_(dt_3.days_since_epoch().count())  > 0); //doe in range [0,146096]
     }

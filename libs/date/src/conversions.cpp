@@ -10,7 +10,7 @@
 #include <boost/chrono/date/conversions.hpp>
 #include <boost/chrono/date/tuples.hpp>
 #include <boost/chrono/date/detail/helpers.hpp>
-
+#include <boost/static_assert.hpp>
 namespace boost
 {
   namespace chrono
