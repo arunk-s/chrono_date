@@ -13,9 +13,6 @@ int main()
     using std::endl ;
     using namespace boost ;
     using namespace boost::chrono ;
-    /**
-    *Gives smth like this : dates/days/days_date_pass.cpp:31 
-    **/
     std::cerr << __FILE__ << ":" << __LINE__ << " " << std::endl; 
 
     /** 
