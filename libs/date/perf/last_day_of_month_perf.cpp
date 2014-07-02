@@ -30,21 +30,14 @@ void years_last_day_of_month_common(){
       month m_ = month(m, no_check);
 //      bool is_leap = year(y).is_leap();
 //      unsigned int day_count = m_.days_in(is_leap).count();
-      last_day_of_month_common_year(m_);
-      cnt++;
-/*
-      for(unsigned int i = 1 ; i<=day_count ;++i)
-      {
-
-          civil_from_days(days_date(m_/day(i)/y).days_since_epoch().count()-dt_1.days_since_epoch().count());
-      }
-*/      
+      cnt += last_day_of_month_common_year(m_);
+      //cnt++;
     }
     ycount++;
   }
   Clock::time_point t1 = Clock::now();
   std::cout << "with last_day_of_month_common_year()                   " << t1-t0<< " Total Years " << ycount << " Total Count "<<cnt<<'\n';
- 
+
 }
 /*
 void years_last_day_of_month_leap(){
@@ -67,7 +60,7 @@ void years_last_day_of_month_leap(){
   }
   Clock::time_point t1 = Clock::now();
   std::cout << "with last_day_of_month_leap_year()                     " << t1-t0<< " Total Years " << ycount << " Total Count "<<cnt<<'\n';
- 
+
 }
 */
 void years_last_day_of_month(){
@@ -83,21 +76,14 @@ void years_last_day_of_month(){
       month m_ = month(m, no_check);
 //      bool is_leap = year(y).is_leap();
 //      unsigned int day_count = m_.days_in(is_leap).count();
-      last_day_of_month(y,m_);
-      cnt++;
-/*
-      for(unsigned int i = 1 ; i<=day_count ;++i)
-      {
-
-          civil_from_days(days_date(m_/day(i)/y).days_since_epoch().count()-dt_1.days_since_epoch().count());
-      }
-*/      
+      cnt += last_day_of_month(y,m_);
+      //cnt++;
     }
     ycount++;
   }
   Clock::time_point t1 = Clock::now();
   std::cout << "with last_day_of_month()                               " << t1-t0<< " Total Years " << ycount << " Total Count "<<cnt<<'\n';
- 
+
 }
 void years_days_in_month(){
 //  boost::chrono::days_rep count = 0;
@@ -110,28 +96,31 @@ void years_days_in_month(){
     for (unsigned int m = 1; m <=12; ++m)
     {
       month m_ = month(m, no_check);
-//      bool is_leap = year(y).is_leap();
-//      unsigned int day_count = 
-      m_.days_in(is_leap).count();
-      cnt++;
-/*
-      for(unsigned int i = 1 ; i<=day_count ;++i)
-      {
-
-          civil_from_days(days_date(m_/day(i)/y).days_since_epoch().count()-dt_1.days_since_epoch().count());
-      }
-*/      
+      bool is_leap = year(y).is_leap();
+//      unsigned int day_count =
+      cnt += m_.days_in(is_leap).count();
     }
     ycount++;
   }
   Clock::time_point t1 = Clock::now();
   std::cout << "with days_in().count()                                 " << t1-t0<< " Total Years " << ycount << " Total Count "<<cnt<<'\n';
- 
+
 }
 
 int main(void){
   years_last_day_of_month_common();
   years_last_day_of_month();
+  years_days_in_month();
+  years_last_day_of_month_common();
+  years_last_day_of_month();
 //  years_last_day_of_month_leap();
   years_days_in_month();
+
+  Ymax *= 10;
+  years_last_day_of_month_common();
+  years_last_day_of_month();
+//  years_last_day_of_month_leap();
+  years_days_in_month();
+
+  return 1;
 }
