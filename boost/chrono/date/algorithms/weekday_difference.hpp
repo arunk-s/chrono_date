@@ -1,5 +1,5 @@
 #ifndef BOOST_CHRONO_DATE_WEEKDAY_DIFFERCENCE_HPP
-#define BOOST_CHRONO_DATE_WEEKDAY_HPP
+#define BOOST_CHRONO_DATE_WEEKDAY_DIFFERCENCE_HPP
 
 #include <limits>
 #include <boost/chrono/date/config.hpp>
