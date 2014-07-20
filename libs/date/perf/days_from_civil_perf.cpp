@@ -87,7 +87,7 @@ void years_days_in_civil_f()
   Clock::time_point t1 = Clock::now();
   //typedef boost::chrono::duration<float, boost::nano> sec;
   //Clock::time_point encode = t1 - t0;
-  std::cout << "with days_from_civil_f()                " << t1-t0<< " Total Years " << ycount << " " <<count << '\n';
+  std::cout << "with days_from_civil_f()                 " << t1-t0<< " Total Years " << ycount << " " <<count << '\n';
 }
 /**
  * Passing days from 1900/1/1 to 4100/1/1 to the algorithm
@@ -158,7 +158,7 @@ void ymd_years_days_in_civil()
   Clock::time_point t1 = Clock::now();
   //typedef boost::chrono::duration<float, boost::nano> sec;
  // Clock::time_point encode = t1 - t0;
-  std::cout << "from days_from_civil() with casting     " << t1-t0 << " Total Years " << ycount << " " <<count<< '\n';
+  std::cout << "with days_from_civil() with casting      " << t1-t0 << " Total Years " << ycount << " " <<count<< '\n';
 }
 
 /**
@@ -268,7 +268,7 @@ void serial_date_days_date()
   Clock::time_point t1 = Clock::now();
   //typedef boost::chrono::duration<float, boost::nano> sec;
  // Clock::time_point encode = t1 - t0;
-  std::cout << "with days_since_epoch()                 " << t1-t0 << " Total Years " << ycount << " " <<count<< '\n';
+  std::cout << "with days_since_epoch()                  " << t1-t0 << " Total Years " << ycount << " " <<count<< '\n';
 }
 
 int main()
@@ -280,10 +280,10 @@ int main()
     years_days_in_civil();
     years_days_in_civil_opaque();
 
-    //ymd_years_days_in_civil();
+    ymd_years_days_in_civil();
     years_days_in_civil_f();
-    ymd_to_days_inline();
-    ymd_to_days();
+    //ymd_to_days_inline();
+    //ymd_to_days();
     serial_date_days_date();
 
   }
