@@ -2,9 +2,9 @@
 #define BOOST_CHRONO_DATE_CIVIL_FROM_DAYS_HPP
 
 #include <limits>
-#include <tuple>
 #include <boost/chrono/date/config.hpp>
 #include <boost/static_assert.hpp>
+#include "boost/tuple/tuple.hpp"
 
 #if ! defined BOOST_NO_CXX14_RELAXED_CONSTEXPR
 #if defined __clang__
@@ -30,7 +30,7 @@ namespace chrono {
 template <class Int>
 BOOST_CONSTEXPR
 BOOST_FORCEINLINE
-std::tuple<Int, unsigned, unsigned>
+boost::tuple<Int, unsigned, unsigned>
 civil_from_days(Int z) BOOST_NOEXCEPT
 {
     BOOST_STATIC_ASSERT_MSG(std::numeric_limits<unsigned>::digits >= 18,
@@ -46,7 +46,9 @@ civil_from_days(Int z) BOOST_NOEXCEPT
     const unsigned mp = (5*doy + 2)/153;                                   // [0, 11]
     const unsigned d = doy - (153*mp+2)/5 + 1;                             // [1, 31]
     const unsigned m = mp + (mp < 10 ? 3 : -9);                            // [1, 12]
-    return std::tuple<Int, unsigned, unsigned>(y + (m <= 2), m, d);
+    return boost::tuple<Int, unsigned, unsigned>(y + (m <= 2), m, d);
+
+//    return std::tuple<Int, unsigned, unsigned>(y + (m <= 2), m, d);
 }
 
 
@@ -179,13 +181,14 @@ month_(Int z) BOOST_NOEXCEPT {
 template<class Int>
 BOOST_CONSTEXPR
 BOOST_FORCEINLINE
-std::tuple<Int,unsigned,unsigned>
+boost::tuple<Int,unsigned,unsigned>
 civil_from_days(Int z) BOOST_NOEXCEPT {
 	BOOST_STATIC_ASSERT_MSG(std::numeric_limits<unsigned>::digits >= 18,
              "This algorithm has not been ported to a 16 bit unsigned integer");
     BOOST_STATIC_ASSERT_MSG(std::numeric_limits<Int>::digits >= 20,
              "This algorithm has not been ported to a 16 bit signed integer");
-	return std::tuple<Int, unsigned, unsigned>(year_(z) + (month_(z) <= 2), month_(z), day_(z));
+    return boost::tuple<Int, unsigned, unsigned>(year_(z) + (month_(z) <= 2), month_(z), day_(z));
+//	return std::tuple<Int, unsigned, unsigned>(year_(z) + (month_(z) <= 2), month_(z), day_(z));
 }
 
 #endif

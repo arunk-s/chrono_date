@@ -5,7 +5,6 @@
 #include <boost/assert.hpp>
 #include <boost/chrono/date/tuples.hpp>
 #include <boost/chrono/chrono.hpp>
-#include <tuple>
 
 using namespace boost::chrono;
 

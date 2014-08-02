@@ -6,6 +6,7 @@
 #include <boost/chrono/date/algorithms/civil_from_days.hpp>
 
 #include <boost/detail/lightweight_test.hpp>
+#include <boost/tuple/tuple.hpp>
 #include <tuple>
 int main()
 {
@@ -149,16 +150,16 @@ int main()
         auto d_3= civil_from_days(dt_5.days_since_epoch().count()-dt_1.days_since_epoch().count());
 
         //For years ahead of 1970
-        BOOST_TEST(std::get<0>(d)==2014 && std::get<1>(d)==3 && std::get<2>(d)==1);
-        BOOST_TEST(std::get<0>(d_1)==2014 && std::get<1>(d_1)==9 && std::get<2>(d_1)==30);
-        BOOST_TEST(std::get<0>(d_2)==2014 && std::get<1>(d_2)==1 && std::get<2>(d_2)==31);
+        BOOST_TEST(boost::get<0>(d)==2014 && boost::get<1>(d)==3 && boost::get<2>(d)==1);
+        BOOST_TEST(boost::get<0>(d_1)==2014 && boost::get<1>(d_1)==9 && boost::get<2>(d_1)==30);
+        BOOST_TEST(boost::get<0>(d_2)==2014 && boost::get<1>(d_2)==1 && boost::get<2>(d_2)==31);
        
         //For years less than 1970
-        BOOST_TEST(std::get<0>(d_3)==1969 && std::get<1>(d_3)==1 && std::get<2>(d_3)==1);
+        BOOST_TEST(boost::get<0>(d_3)==1969 && boost::get<1>(d_3)==1 && boost::get<2>(d_3)==1);
  
         //Day 0 corresponds to year 1970-01-01
         auto d_4 = civil_from_days(0);
-        BOOST_TEST(std::get<0>(d_4)==1970 && std::get<1>(d_4)==1 && std::get<2>(d_4)==1);
+        BOOST_TEST(boost::get<0>(d_4)==1970 && boost::get<1>(d_4)==1 && boost::get<2>(d_4)==1);
 
     }
     return boost::report_errors();
